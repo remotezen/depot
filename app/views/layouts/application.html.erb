@@ -7,8 +7,28 @@
   <%= csrf_meta_tags %>
 </head>
 <body class='<%=controller.controller_name%>'>
+  <div id="banner">
+    <%= image_tag("logo.png") %>
+    <%= @page_title || "Remotezen" %>
+  </div>
+  <div id="columns">
+    <div id="side">
+      <ul>
+        <li>
+          <a href=""></a>
+        </li>
+        <li>
+          <a href=""></a>
+        </li>
+        <li>
+          <a href=""></a>
+        </li>
+      </ul>
 
-<%= yield %>
-
+    </div>
+  <div id="main">
+    <%=yield%>
+</div>
+</div>
 </body>
 </html>

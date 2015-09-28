@@ -6,5 +6,10 @@ class Product < ActiveRecord::Base
     message: 'Must be a Url for GIF, JPG OR PNG image.'
   }
   validates :title, presence: true, uniqueness: {case_sensitive: false}
+  validates :description, length:{minimum: 10}
+  
+  def self.latest
+    Product.order(:updated_at).last
+  end
 
 end

@@ -42,7 +42,11 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.valid?
     assert_equal ["has already been taken"], product.errors[:title]
 
-
   end
-
+  test "assert product description length is at least 10 characters long" do
+    desc = "A" * 9
+    @product.description = desc
+    assert_not @product.valid?
+  end
 end
+
