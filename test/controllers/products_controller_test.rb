@@ -3,47 +3,34 @@ require 'test_helper'
 class ProductsControllerTest < ActionController::TestCase
   setup do
     @product = products(:one)
-  end
+    @update = {
+      title: 'Lorem Ipsum',
+      description: "weebles don't fall down",
+      image_url: 'lorem.jpg',
+      price: 19.99
 
+    }
+  end
+  require 'test_helper'
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:products)
   end
-
   test "should get new" do
     get :new
     assert_response :success
   end
-
-  test "should create product" do
-    assert_difference('Product.count') do
-      post :create, product: { description: @product.description, image_url: @product.image_url, price: @product.price, title: @product.title }
+  test "should create new product" do
+    assert_difference 'Product.count', 1 do
+      post :create, product: @update
     end
-
-    assert_redirected_to product_path(assigns(:product))
   end
-
-  test "should show product" do
-    get :show, id: @product
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @product
-    assert_response :success
-  end
-
   test "should update product" do
-    patch :update, id: @product, product: { description: @product.description, image_url: @product.image_url, price: @product.price, title: @product.title }
+    patch :update,  id: @product.id,
+    product: @update
+    assert_not flash.empty?
     assert_redirected_to product_path(assigns(:product))
   end
 
-  test "should destroy product" do
-    assert_difference('Product.count', -1) do
-      delete :destroy, id: @product
-    end
 
-    assert_redirected_to products_path
-  end
 end
