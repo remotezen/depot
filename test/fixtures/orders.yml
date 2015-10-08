@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Dave Thomas 
+  address: My Text 
+  email: dave@remotezen.org 
+  pay_type: check 
+
+two:
+  name: MyString
+  address: My text 
+  email: MyString
+  pay_type: MyString

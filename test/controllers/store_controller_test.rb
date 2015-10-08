@@ -15,6 +15,7 @@ class StoreControllerTest < ActionController::TestCase
     assert_select '#main .entry' , 3
     assert_select 'h3', 'Programming Ruby 1.9'
     
+    
   end
 
 end

@@ -1,0 +1,78 @@
+  <% @product.orders.each do |order| %>
+  <table>
+    <tr>
+      <td>
+        <strong>Name:</strong>
+      </td>
+      <td><%= order.name %></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Address:</strong>
+      </td>
+      <td><%= order.address%></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Email:</strong>
+      </td>
+      <td><%= order.email %></td>
+    </tr>
+
+  </table>
+    <table>
+      <tbody>
+        <th>
+          <strong>title</strong>
+        </th>
+        <th>
+          <strong>price</strong>
+        </th>
+        <th>
+          <strong>quantity</strong>
+        </th>
+      </tbody>
+    <% order.line_items.each do |item| %>
+      <tr>
+        <td>
+          <strong>
+            <%= item.product.title%>
+          </strong>
+        </td>
+        <td>
+        <%= number_to_currency(item.product.price) %>
+        </td>
+        <td>
+          <%= item.quantity %>
+        </td>
+        <td>
+          <%= number_to_currency(item.total_price) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+    <table>
+      <tr>
+        <td>
+          <strong>
+            <u></u>
+            <u>
+              Total
+              <%= number_to_currency(order.line_items.map(&:total_price).sum) %>
+          </strong>
+            </u>
+        </td>
+      </tr>
+    </table>
+    <h3>
+      <%#order.line_items.inspect%>
+    </h3>
+
+</table>
+<br>
+<br>
+<br>
+<br>
+<% end %>
+  
+

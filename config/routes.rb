@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
+  resources :orders
+  resources :line_items
+  resources :carts
   get 'store/index'
+  root 'store#index'
+  get 'store/index' => 'store#index', as: :store
+  get 'line_items/quantity_decrement/:id' => 'line_items#quantity_decrement', as: :decrement
+  resources :products do
+    get :who_bought, on: :member
+  end
 
   resources :products
   # The priority is based upon order of creation: first created -> highest priority.

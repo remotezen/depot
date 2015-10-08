@@ -31,6 +31,9 @@ class ProductsControllerTest < ActionController::TestCase
     assert_not flash.empty?
     assert_redirected_to product_path(assigns(:product))
   end
+  test "product index should contain these elements" do
+    get :index
+    assert_select 'table tr.list_line_odd'
 
-
+  end
 end

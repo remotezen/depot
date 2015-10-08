@@ -13,9 +13,14 @@
   </div>
   <div id="columns">
     <div id="side">
+      <% if @cart %>
+      <%=hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+        <%= render @cart %>
+      <% end %>
+    <% end %>
       <ul>
         <li>
-          <a href=""></a>
+          <a href="="></a>
         </li>
         <li>
           <a href=""></a>
@@ -24,7 +29,12 @@
           <a href=""></a>
         </li>
       </ul>
-
+      <br>
+      <%= Time.now.in_time_zone("Eastern Time (US & Canada)")%>
+      <br>
+      <% unless session_counter.nil? or session_counter < 5%>
+          <%= pluralize(session_counter, "time") %>
+        <% end %>
     </div>
   <div id="main">
     <%=yield%>
