@@ -21,4 +21,13 @@ class OrderNotifier < ApplicationMailer
 
     mail to: "to@example.org"
   end
+  def receive(order)
+    @order = order
+    mail to: order.email, subjects: "Pragmatic Store Order Confirmation"
+  end
+  def shipped
+    @order =order
+    mail to: order.email, subject: 'Remote Zen order shipped'
+    
+  end
 end
