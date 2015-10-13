@@ -27,7 +27,8 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     post_via_redirect "/orders",
                       order: { name: "Dave Thomas",
                                address: "123 The Street",
-                               email: "dave@example.com"
+                               email: "dave@example.org",
+                               ship_date: nil,
                                pay_type: "Check" }
 
     assert_response :success
@@ -35,8 +36,15 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     cart = Cart.find(session[:cart_id])
     assert_equal 0, cart.line_items.size
     orders = Order.all
+    order = orders[0]
     assert_equal "Dave Thomas",    order.name
     assert_equal "123 The Street", order.address
-    
+    assert_equal "dave@example.org", order.email
+    assert_equal "Check", order.pay_type
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["dave@example.org"], mail.to
+    assert_equal "currentlyremote@gmail.com", mail[:from].value
+    assert_equal "Pragmatic Store Order Confirmation", mail.subject
   end
+  
 end

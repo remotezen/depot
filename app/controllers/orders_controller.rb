@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authorize, only: [:new, :create]
 
 
   # GET /orders
@@ -40,7 +41,8 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        OrderNotifier.received(@order).deliver
+        OrderNotifier.received(@order).deliver_now
+
         format.html { redirect_to store_url, 
                       notice: '"Thank you for your order."' 
         }
@@ -58,7 +60,9 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1.json
   def update
     respond_to do |format|
+
       if @order.update(order_params)
+        #OrderNotifier.updated(@order).deliver_now
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else

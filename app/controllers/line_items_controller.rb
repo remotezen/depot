@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:create, :decrement] #ActiveRecord callback
   before_action :set_line_item, only: [:show, :edit, :update, :destroy] #ActiveRecord callback
-
+ skip_before_action :authorize, only: :create
   # GET /line_items
   # GET /line_items.json
   def index

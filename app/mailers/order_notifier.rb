@@ -7,7 +7,7 @@ class OrderNotifier < ApplicationMailer
   #
   def received
     @greeting = "Hi"
-    mail to: "currentlyremote@gmail.com"
+    mail to: order.email, subject: "Pragmatic Store Order Confirmation"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -17,18 +17,22 @@ class OrderNotifier < ApplicationMailer
   #
   def shipped
     @greeting = "Hi"
-    mail to: "currentlyremote@gmail.com"
+    mail to: order.email, subject: 'Shipped'
   end
+  
   def received(order)
     @order = order
-    mail to: order.email, subjects: "Pragmatic Store Order Confirmation"
+    mail to: order.email, subject: "Pragmatic Store Order Confirmation"
   end
   
   def shipped(order)
     @greeting = "Hi"
     @order = order
-    mail to: order.email, subject: 'Shipped'
-    
-    
+    mail to: @order.email, subject: 'Shipped'
+  end
+  
+  def updated(order)
+    @order = order
+    mail to: "remotezen@localhost", subject: "An order was changed"
   end
 end

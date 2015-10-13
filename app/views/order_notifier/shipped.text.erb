@@ -1,2 +1,7 @@
 Pragmatic Store Order Shipped
-<%= @greeting %>, find me in app/views/order_notifier/shipped.text.erb
+<%= @greeting%> <%= @order.name %>
+
+Your was shipped on <%= @order.ship_date %>
+and was shipped to <%= @order.address %>
+and should arrive soon.
+Thank you for your patronage!
